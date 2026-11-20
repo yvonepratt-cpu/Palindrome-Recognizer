@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Palindrome String Recognizer - PDA</title>
+
+    <!-- Connect CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Palindrome String Recognizer</h1>
+
+        <p class="subtitle">
+            Using Pushdown Automaton (PDA)
+        </p>
+
+        <label for="userInput">Enter a sequence:</label>
+
+        <input
+            type="text"
+            id="userInput"
+            placeholder="Enter letters, numbers, or symbols..."
+        >
+
+        <div class="buttons">
+
+            <button class="check" onclick="checkPalindrome()">
+                Check String
+            </button>
+
+            <button class="clear" onclick="clearAll()">
+                Clear
+            </button>
+
+        </div>
+
+        <div id="result"></div>
+
+        <div class="section">
+
+            <h3>Input Examples</h3>
+
+            <div class="examples">
+
+                <button onclick="setExample('madam')">madam</button>
+                <button onclick="setExample('12321')">12321</button>
+                <button onclick="setExample('abba')">abba</button>
+                <button onclick="setExample('@a@')">@a@</button>
+                <button onclick="setExample('a1a')">a1a</button>
+                <button onclick="setExample('1234')">1234</button>
+                <button onclick="setExample('aabb')">aabb</button>
+
+            </div>
+
+        </div>
+
+        <div class="section">
+
+            <h3>PDA Information</h3>
+
+            <p><b>q0:</b> Initial State</p>
+            <p><b>q1:</b> Push characters into the stack</p>
+            <p><b>q2:</b> Match and pop characters</p>
+            <p><b>q3:</b> Accept State</p>
+            <p><b>Stack:</b> Last-In, First-Out (LIFO)</p>
+
+        </div>
+
+        <div class="section">
+
+            <h3>Stack Contents</h3>
+
+            <div id="stack" class="stack">
+                Empty
+            </div>
+
+        </div>
+
+        <div class="section">
+
+            <h3>Processing Steps</h3>
+
+            <div id="steps">
+                Enter a sequence and click Check String.
+            </div>
+
+        </div>
+
+        <p class="note">
+            Note: The recognizer compares characters exactly.
+            Uppercase and lowercase letters are different.
+            Spaces and special characters are included.
+        </p>
+
+    </div>
+
+    <!-- Connect JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
