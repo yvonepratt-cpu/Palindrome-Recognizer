@@ -1,142 +1,393 @@
-
+/* Includes padding and borders in element sizing */
 * {
     box-sizing: border-box;
 }
 
+/* Sets the background, text color and font of the website */
 body {
-    font-family: Arial, sans-serif;
-    background: #f0f2f5;
     margin: 0;
-    padding: 30px 15px;
+    background: #0b1220;
+    color: #e7edf7;
+    font: 16px/1.55 system-ui, sans-serif;
 }
 
-.container {
-    max-width: 650px;
+/* Centers the main content and limits its width */
+main {
+    max-width: 1160px;
     margin: auto;
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 36px 22px;
 }
 
+/*HEADER DESIGN*/
+
+/* Adds space around the project header */
+header {
+    padding: 22px 0 28px;
+}
+
+/* Styles the main project title */
+/* clamp adjusts the font size based on screen width */
 h1 {
-    text-align: center;
-    color: #263b5e;
-    font-size: 25px;
+    font-size: clamp(28px, 4vw, 45px);
+    line-height: 1.2;
+    margin: 12px 0;
 }
 
-.subtitle {
-    text-align: center;
-    color: #666;
-    margin-bottom: 25px;
+/* Styles the section headings */
+h2 {
+    font-size: 19px;
+    margin: 0 0 20px;
+    color: #e7edf7;
 }
 
-label {
-    font-weight: bold;
+/* Adds vertical spacing to paragraphs */
+p {
+    margin: 10px 0;
+}
+
+/* Styles the small heading above the project title */
+.eyebrow {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #62dfcb;
+    font-weight: 700;
+}
+
+/* Uses a lighter secondary color for descriptions */
+header p,
+.muted,
+footer {
+    color: #a5b4ca;
+}
+
+/* GRID AND LAYOUT DESIGN */
+
+/* Uses CSS Grid to organize the sections */
+.stats,
+.layout {
+    display: grid;
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+/* Creates three equal columns for statistics */
+.stats {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* Creates two equal columns for the main interface */
+.layout {
+    grid-template-columns: 1fr 1fr;
+}
+
+/* Gives each panel and statistics card a background */
+.panel,
+.stats article {
+    background: #152034;
+    border: 1px solid #293950;
+    border-radius: 16px;
+    padding: 24px;
+}
+
+/* Adds space below each panel */
+.panel {
+    margin-bottom: 18px;
+}
+
+/* Removes extra margin inside the two-column layout */
+.layout .panel {
+    margin: 0;
+}
+
+/* STATISTICS DESIGN */
+
+/* Sets the color of statistics labels */
+.stats article {
+    color: #a5b4ca;
+}
+
+/* Makes the statistics numbers larger */
+.stats strong {
     display: block;
-    margin-bottom: 10px;
+    font-size: 30px;
+    color: #62dfcb;
 }
 
-input {
+/* Green represents accepted strings */
+#good {
+    color: #74efb5;
+}
+
+/* Red represents rejected strings */
+#bad {
+    color: #ff9c9c;
+}
+
+/* INPUT FIELD DESIGN */
+
+/* Places input labels above the input fields */
+label {
+    display: block;
+    margin: 12px 0 8px;
+}
+
+/* Styles text input fields but excludes the range slider */
+input:not([type=range]) {
     width: 100%;
-    padding: 13px;
-    font-size: 17px;
-    border: 1px solid #ccc;
-    border-radius: 7px;
-    margin-bottom: 15px;
-}
-
-button {
-    padding: 12px 18px;
-    border: none;
-    border-radius: 7px;
-    cursor: pointer;
-    font-size: 15px;
-    margin: 4px;
-}
-
-.check {
-    background: #263b5e;
+    border: 1px solid #465773;
+    border-radius: 9px;
+    background: #0b1220;
     color: white;
+    padding: 14px;
+    font: inherit;
 }
 
-.clear {
-    background: #ddd;
-    color: #333;
+/* Changes the color of the animation speed slider */
+input[type=range] {
+    width: 100%;
+    accent-color: #62dfcb;
 }
 
-button:hover {
-    opacity: 0.85;
-}
+/* BUTTON DESIGN */
 
-.buttons {
-    text-align: center;
-}
-
-.result {
-    margin-top: 20px;
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.accepted {
-    background: #d4edda;
-    color: #155724;
-}
-
-.rejected {
-    background: #f8d7da;
-    color: #721c24;
-}
-
-.section {
-    margin-top: 25px;
-    padding: 15px;
-    background: #f7f8fa;
-    border-radius: 8px;
-}
-
-.section h3 {
-    color: #263b5e;
-    margin-top: 0;
-}
-
-.stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    margin-top: 10px;
-}
-
-.stack-item {
-    background: #263b5e;
-    color: white;
-    padding: 10px 14px;
-    border-radius: 5px;
-}
-
-.step {
-    padding: 9px;
-    border-bottom: 1px solid #ddd;
-    font-size: 14px;
-}
-
-.examples {
+/* Arranges buttons beside each other */
+.controls {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    margin: 12px 0;
 }
 
-.examples button {
-    background: #e1e8f5;
-    color: #263b5e;
+/* Default design for all buttons */
+button {
+    border: 0;
+    border-radius: 8px;
+    padding: 11px 17px;
+    font: inherit;
+    font-weight: 650;
+    background: #62dfcb;
+    color: #092722;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-.note {
+/* Changes button appearance when the mouse is over it */
+button:hover:not(:disabled) {
+    filter: brightness(1.15);
+    transform: translateY(-2px);
+}
+
+/* Gives the reset and example buttons a different color */
+button.secondary,
+#examples button {
+    background: #24354e;
+    color: #e7edf7;
+}
+
+/* Makes disabled buttons appear faded */
+button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* Highlights buttons and inputs when using the keyboard */
+button:focus-visible,
+input:focus-visible {
+    outline: 2px solid #62dfcb;
+    outline-offset: 3px;
+}
+
+/* RESULT DESIGN */
+
+/* Default appearance of the result container */
+.result {
+    border: 1px solid #465773;
+    padding: 15px;
+    border-radius: 9px;
+    margin-top: 16px;
+    overflow-wrap: anywhere;
+}
+
+/* Green result when the string is a palindrome */
+.accepted {
+    color: #74efb5;
+    border-color: #74efb5;
+    background: rgba(116, 239, 181, 0.06);
+}
+
+/* Red result when the string is not a palindrome */
+.rejected {
+    color: #ff9c9c;
+    border-color: #ff9c9c;
+    background: rgba(255, 156, 156, 0.06);
+}
+
+/* PDA STATE DIAGRAM DESIGN */
+
+/* Arranges PDA states horizontally */
+.states {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+/* Creates a circle for each PDA state */
+.states span {
+    border: 2px solid #465773;
+    border-radius: 50%;
+    width: 66px;
+    height: 66px;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+/* Styles the description inside each state */
+.states small {
+    display: block;
+    font-size: 10px;
+    font-weight: 400;
+}
+
+/* Creates a double circle for the accepting state */
+.states #q3 {
+    outline: 1px solid #465773;
+    outline-offset: 3px;
+}
+
+/* Highlights the state currently being processed */
+.states .active {
+    background: #62dfcb;
+    color: #092722;
+    border-color: #62dfcb;
+    box-shadow: 0 0 15px rgba(98, 223, 203, 0.3);
+}
+
+/* STACK VISUALIZATION DESIGN */
+
+/* Container where the stack symbols are displayed */
+.stack {
+    min-height: 90px;
+    max-height: 240px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: #0b1220;
+    padding: 14px;
+    border-radius: 10px;
+}
+
+/* Styles each individual character inside the stack */
+.stack span {
+    display: block;
+    min-width: 90px;
+    text-align: center;
+    padding: 5px;
+    background: #24354e;
+    border: 1px solid #465773;
+    border-radius: 4px;
+    white-space: pre-wrap;
+}
+
+/* Gives the bottom marker a different appearance */
+.stack span:last-child {
+    border-color: #62dfcb;
+    color: #62dfcb;
+}
+
+/* Styles the current operation message */
+#operation {
+    padding: 12px;
+    background: #0b1220;
+    border-radius: 8px;
+    color: #62dfcb;
+    overflow-wrap: anywhere;
+}
+
+/* PROCESSING TRACE TABLE DESIGN */
+
+/* Allows the table to scroll vertically and horizontally */
+.tablewrap {
+    max-height: 340px;
+    overflow: auto;
+}
+
+/* Makes the table occupy the available width */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+/* Adds spacing and borders to table cells */
+th,
+td {
+    padding: 10px;
+    border-bottom: 1px solid #293950;
+    overflow-wrap: anywhere;
+}
+
+/* Keeps the table headings visible while scrolling */
+th {
+    color: #62dfcb;
+    background: #152034;
+    position: sticky;
+    top: 0;
+}
+
+/* Preserves spaces inside the stack column */
+td:last-child {
+    white-space: pre-wrap;
+}
+
+/* Highlights a table row when the mouse is over it */
+tbody tr:hover {
+    background: #1e2c42;
+}
+
+/*  FOOTER DESIGN */
+
+/* Centers the footer text */
+footer {
+    text-align: center;
     font-size: 13px;
-    color: #666;
-    line-height: 1.5;
+}
+
+/*  RESPONSIVE DESIGN */
+
+/* Applies these styles on smaller screens */
+@media (max-width: 700px) {
+
+    /* Changes the main layout into a single column */
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    /* Reduces the padding on mobile devices */
+    .panel,
+    .stats article {
+        padding: 15px;
+    }
+
+    /* Reduces the space between statistics cards */
+    .stats {
+        gap: 8px;
+    }
+
+    /* Makes PDA state circles smaller */
+    .states span {
+        width: 54px;
+        height: 54px;
+    }
+
+    /* Reduces the main container spacing */
+    main {
+        padding: 20px 12px;
+    }
 }
