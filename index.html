@@ -1,108 +1,321 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <!-- Allows the website to display different characters and symbols -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Palindrome String Recognizer - PDA</title>
+    <!-- Makes the website responsive on computers and mobile phones -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Connect CSS -->
-    <link rel="stylesheet" href="style.css">
+    <!-- Title displayed on the browser tab -->
+    <title>Palindrome Recognizer | PDA Lab</title>
+
+    <!-- Connects the HTML file to the CSS file -->
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
-    <div class="container">
+    <!-- Main container of the entire website -->
+    <main>
 
-        <h1>Palindrome String Recognizer</h1>
+        <!-- HEADER SECTION -->
+        <!-- Displays the project title and description -->
+        <header>
 
-        <p class="subtitle">
-            Using Pushdown Automaton (PDA)
-        </p>
+            <span class="eyebrow">
+                THEORY OF COMPUTATION / INTERACTIVE LAB
+            </span>
 
-        <label for="userInput">Enter a sequence:</label>
+            <h1>Palindrome String Recognizer</h1>
 
-        <input
-            type="text"
-            id="userInput"
-            placeholder="Enter letters, numbers, or symbols..."
-        >
+            <p>
+                Design and Implementation Using a
+                Pushdown Automaton (PDA)
+            </p>
 
-        <div class="buttons">
+        </header>
 
-            <button class="check" onclick="checkPalindrome()">
-                Check String
-            </button>
 
-            <button class="clear" onclick="clearAll()">
-                Clear
-            </button>
+        <!-- STATISTICS SECTION -->
+        <!-- Displays the number of strings tested by the user -->
+        <section class="stats">
+
+            <!-- Total number of tested strings -->
+            <article>
+                Total Tests
+                <strong id="total">0</strong>
+            </article>
+
+            <!-- Number of accepted strings -->
+            <article>
+                Accepted
+                <strong id="good">0</strong>
+            </article>
+
+            <!-- Number of rejected strings -->
+            <article>
+                Rejected
+                <strong id="bad">0</strong>
+            </article>
+
+        </section>
+
+
+        <!-- MAIN TWO-COLUMN LAYOUT -->
+        <div class="layout">
+
+            <!-- INPUT SECTION -->
+            <section class="panel">
+
+                <h2>01 · Test a Sequence</h2>
+
+                <!-- Label describing what the user can enter -->
+                <label for="userInput">
+                    Enter letters, numbers or symbols
+                </label>
+
+                <!-- Input field where the user enters a sequence -->
+                <!-- The ID allows JavaScript to access the input -->
+                <input
+                    type="text"
+                    id="userInput"
+                    placeholder="e.g. madam or 12321"
+                    autocomplete="off"
+                >
+
+                <!-- Container for the action buttons -->
+                <div class="controls">
+
+                    <!-- Starts the palindrome checking process -->
+                    <button id="check">
+                        Check String
+                    </button>
+
+                    <!-- Clears the input and current visualization -->
+                    <button class="secondary" id="clear">
+                        Reset
+                    </button>
+
+                </div>
+
+
+                <!-- EXAMPLE SECTION -->
+                <p class="muted">Try an example</p>
+
+                <!-- JavaScript automatically creates example buttons here -->
+                <div id="examples" class="controls"></div>
+
+
+                <!-- ANIMATION SPEED SECTION -->
+                <label for="speed">
+
+                    Animation delay:
+
+                    <!-- Displays the selected animation delay -->
+                    <output id="delay">300 ms</output>
+
+                </label>
+
+                <!-- Slider that controls the speed of the PDA animation -->
+                <!-- Lower delay means faster animation -->
+                <input
+                    id="speed"
+                    type="range"
+                    min="50"
+                    max="1000"
+                    step="50"
+                    value="300"
+                >
+
+
+                <!-- RESULT SECTION -->
+                <!-- Displays whether the input is accepted or rejected -->
+                <div id="result" role="status" class="result">
+                    Ready to process a sequence.
+                </div>
+
+                <!-- Explains the input matching rules -->
+                <p class="muted">
+                    Exact matching: uppercase, lowercase,
+                    spaces and symbols are significant.
+                    Empty input represents ε.
+                </p>
+
+            </section>
+
+
+            <!-- PDA VISUALIZATION SECTION -->
+            <section class="panel">
+
+                <h2>02 · PDA State Diagram</h2>
+
+                <!-- Displays the four states of the PDA -->
+                <div class="states">
+
+                    <!-- q0 is the starting state -->
+                    <span id="q0">
+                        q0
+                        <small>Start</small>
+                    </span>
+
+                    <!-- Arrow represents a state transition -->
+                    <b>→</b>
+
+                    <!-- q1 stores characters using PUSH operations -->
+                    <span id="q1">
+                        q1
+                        <small>Push</small>
+                    </span>
+
+                    <b>→</b>
+
+                    <!-- q2 compares characters using POP operations -->
+                    <span id="q2">
+                        q2
+                        <small>Pop</small>
+                    </span>
+
+                    <b>→</b>
+
+                    <!-- q3 is the final accepting state -->
+                    <span id="q3">
+                        q3
+                        <small>Accept</small>
+                    </span>
+
+                </div>
+
+                <!-- Explanation of the PDA state transitions -->
+                <p class="muted">
+                    q0 initializes the stack.
+                    q1 pushes the first half of the input.
+                    q2 compares and removes matching characters.
+                    q3 accepts the input when all characters match.
+                </p>
+
+
+                <!-- STACK VISUALIZATION SECTION -->
+                <h2>03 · Stack Visualization</h2>
+
+                <!-- Displays the current contents of the stack -->
+                <div id="stack" class="stack">
+
+                    <!-- Bottom marker of the stack -->
+                    <span>⊥</span>
+
+                </div>
+
+                <!-- Explains the bottom marker -->
+                <p class="muted">
+                    The symbol ⊥ represents the bottom of the stack.
+                </p>
+
+                <!-- Displays the current PUSH or POP operation -->
+                <div id="operation" aria-live="polite">
+                    Waiting for input
+                </div>
+
+            </section>
 
         </div>
 
-        <div id="result"></div>
 
-        <div class="section">
+        <!-- PROCESSING TRACE SECTION -->
+        <!-- Shows every operation performed by the PDA -->
+        <section class="panel">
 
-            <h3>Input Examples</h3>
+            <h2>04 · Processing Trace</h2>
 
-            <div class="examples">
+            <!-- Allows the table to scroll when there are many steps -->
+            <div class="tablewrap">
 
-                <button onclick="setExample('madam')">madam</button>
-                <button onclick="setExample('12321')">12321</button>
-                <button onclick="setExample('abba')">abba</button>
-                <button onclick="setExample('@a@')">@a@</button>
-                <button onclick="setExample('a1a')">a1a</button>
-                <button onclick="setExample('1234')">1234</button>
-                <button onclick="setExample('aabb')">aabb</button>
+                <table>
+
+                    <!-- Table column headings -->
+                    <thead>
+                        <tr>
+                            <th>Step</th>
+                            <th>State</th>
+                            <th>Operation</th>
+                            <th>Stack (bottom → top)</th>
+                        </tr>
+                    </thead>
+
+                    <!-- JavaScript inserts processing steps here -->
+                    <tbody id="trace"></tbody>
+
+                </table>
 
             </div>
 
-        </div>
+        </section>
 
-        <div class="section">
 
-            <h3>PDA Information</h3>
+        <!-- PROJECT INFORMATION SECTION -->
+        <!-- Explains the design and implementation of the chosen topic -->
+        <section class="panel">
 
-            <p><b>q0:</b> Initial State</p>
-            <p><b>q1:</b> Push characters into the stack</p>
-            <p><b>q2:</b> Match and pop characters</p>
-            <p><b>q3:</b> Accept State</p>
-            <p><b>Stack:</b> Last-In, First-Out (LIFO)</p>
+            <h2>05 · Design and Implementation</h2>
 
-        </div>
+            <!-- Definition of a palindrome -->
+            <p>
+                A palindrome is a sequence of characters,
+                numbers or symbols that reads the same
+                forward and backward.
+            </p>
 
-        <div class="section">
+            <!-- Explanation of the stack implementation -->
+            <p>
+                The system uses a Last In, First Out (LIFO)
+                stack to store the first half of the input
+                and compare it with the remaining characters.
+            </p>
 
-            <h3>Stack Contents</h3>
+            <!-- Formal language of the palindrome recognizer -->
+            <p>
 
-            <div id="stack" class="stack">
-                Empty
-            </div>
+                <strong>Formal Language:</strong>
 
-        </div>
+                L = { w ∈ Σ* | w = wᴿ }.
 
-        <div class="section">
+            </p>
 
-            <h3>Processing Steps</h3>
+            <!-- Explains the difference between a general PDA and the simulator -->
+            <p>
+                A general palindrome PDA nondeterministically
+                guesses the midpoint of the input. This simulator
+                uses the known input length to select the
+                corresponding computation path.
+            </p>
 
-            <div id="steps">
-                Enter a sequence and click Check String.
-            </div>
+            <!-- Technologies used in developing the system -->
+            <p>
 
-        </div>
+                <strong>Technology:</strong>
 
-        <p class="note">
-            Note: The recognizer compares characters exactly.
-            Uppercase and lowercase letters are different.
-            Spaces and special characters are included.
-        </p>
+                HTML provides the structure, CSS provides the
+                design, and JavaScript implements the stack,
+                state transitions and recognition logic.
 
-    </div>
+                No database is required.
 
-    <!-- Connect JavaScript -->
-    <script src="script.js"></script>
+            </p>
+
+        </section>
+
+
+        <!-- FOOTER SECTION -->
+        <footer>
+            Palindrome Recognizer · Theory of Computation Project
+        </footer>
+
+    </main>
+
+    <!-- Connects the HTML file to the JavaScript file -->
+    <!-- Placed at the bottom so HTML loads before JavaScript runs -->
+    <script src="./script.js"></script>
 
 </body>
 </html>
